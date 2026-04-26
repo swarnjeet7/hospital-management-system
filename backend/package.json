@@ -5,6 +5,7 @@
   "type": "module",
   "main": "dist/server.js",
   "scripts": {
+    "dev": "tsx watch src/server.ts",
     "test": "echo \"Error: no test specified\" && exit 1",
     "lint": "eslint src --ext .ts",
     "lint:fix": "eslint src --fix"
@@ -30,11 +31,15 @@
     "@types/node": "^25.6.0",
     "eslint": "^10.2.1",
     "prettier": "^3.8.3",
+    "prisma": "^7.8.0",
     "tsx": "^4.21.0",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.59.0"
   },
   "dependencies": {
-    "express": "^5.2.1"
+    "@prisma/client": "^7.8.0",
+    "dotenv": "^17.4.2",
+    "express": "^5.2.1",
+    "zod": "^4.3.6"
   }
 }
