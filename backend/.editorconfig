@@ -1,0 +1,25 @@
+# EditorConfig is awesome: https://EditorConfig.org
+
+# Top-most EditorConfig file
+root = true
+
+# Default for all files
+[*]
+charset = utf-8
+end_of_line = lf
+indent_style = space
+indent_size = 2
+insert_final_newline = true
+trim_trailing_whitespace = true
+
+# Markdown — keep trailing whitespace (line breaks)
+[*.md]
+trim_trailing_whitespace = false
+
+# Match TypeScript/JavaScript/JSON
+[*.{ts,js,json,jsonc}]
+indent_size = 2
+
+# YAML — convention is 2 spaces
+[*.{yml,yaml}]
+indent_size = 2
