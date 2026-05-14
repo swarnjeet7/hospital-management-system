@@ -1,14 +1,78 @@
 // This is your Prisma schema file,
 // learn more about it in the docs: https://pris.ly/d/prisma-schema
 
-// Get a free hosted Postgres database in seconds: `npx create-db`
-
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider = "prisma-client-js"
 }
 
 datasource db {
-  provider = "mysql",
-  url = env("DATABASE_URL")
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id             String   @id @default(cuid())
+  email          String   @unique
+  passwordHash   String   @map("password_hash")
+  name           String
+  role           String   @default("admin")
+  phone          String?  @map("phone")
+  accountStatus  String   @default("active") @map("account_status")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Patient {
+  id        String   @id @default(cuid())
+  name      String
+  age       Int
+  gender    String
+  contact   String
+  address   String?  @db.Text
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt @map("updated_at")
+
+  @@map("patients")
+}
+
+model Doctor {
+  id             String   @id @default(cuid())
+  name           String
+  specialization String
+  department     String?
+  contact        String?
+  timingStart    String?  @map("timing_start")
+  timingEnd      String?  @map("timing_end")
+  status         String   @default("available")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("doctors")
+}
+
+model Appointment {
+  id          String   @id @default(cuid())
+  patientName String   @map("patient_name")
+  doctorName  String   @map("doctor_name")
+  scheduledAt DateTime @map("scheduled_at")
+  status      String   @default("scheduled")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt @map("updated_at")
+
+  @@map("appointments")
+}
+
+model Invoice {
+  id             String   @id @default(cuid())
+  invoiceNumber  String   @unique @map("invoice_number")
+  patientName    String   @map("patient_name")
+  service        String
+  amount         Decimal  @db.Decimal(12, 2)
+  status         String   @default("pending")
+  createdAt      DateTime @default(now()) @map("created_at")
+  updatedAt      DateTime @updatedAt @map("updated_at")
+
+  @@map("invoices")
 }
